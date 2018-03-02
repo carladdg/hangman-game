@@ -7,19 +7,32 @@ var numberOfGuesses = 10;
 
 var lettersGuessed = [];
 
-var currentWord = document.getElementById("current-word");
+var currentWord = selectRandomWord();
+var displayedWord = convertToUnderscores();
 
 // functions
 
-function displayNewWord() {
+function selectRandomWord() {
     var randomlySelectedWord = listOfWords[Math.floor(Math.random()*listOfWords.length)]
-    var wordLength = randomlySelectedWord.length;
-    currentWord.innerHTML = randomlySelectedWord;
+    return randomlySelectedWord;
+}
+
+function convertToUnderscores() {
+    var underscoredWord = currentWord.replace(/./g, "_ ");
+    return underscoredWord
+}
+
+function replaceWord() {
+
 }
 
 // calls
 
-displayNewWord();
+selectRandomWord();
+console.log(currentWord);
+
+convertToUnderscores();
+console.log(displayedWord);
 
 // TO DO
 // if successful, delete word from array
