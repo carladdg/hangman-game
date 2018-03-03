@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hangman</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
+    <button id="start-button">Start</button>
     <h1>Hangman</h1>
-    <h2>Wins:</h2>
-    <h2>Current Word: <span id="displayed-word"></span></h2>
-    <h2>Number of Guesses Remaining:</h2>
-    <h2>Letters Already Guessed:</h2>
+    <h2>Wins: <span id="number-of-wins"></span></h2>
+    <h2><span id="displayed-word"></span></h2>
+    <h2>Number of Guesses Remaining: <span id="number-of-guesses"></span></h2>
+    <h2>Letters Guessed: <span id="letters-guessed"></span></h2>
+    <button id="next-word-button">Next Word</button>
+
     <script src="./assets/js/game.js"></script>
 </body>
 </html>
