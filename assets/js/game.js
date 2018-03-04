@@ -93,6 +93,8 @@ startButton.onclick = function() {
 }
 
 function initializeGame() {
+    document.onkeyup = playTurn;
+    
     numberOfGuesses = 7;
     numberOfGuessesElement.textContent = numberOfGuesses;
 
@@ -122,8 +124,6 @@ function convertToUnderscores() {
     var underscoredWord = currentMovieName.replace(/[a-z]/g, "_");
     return underscoredWord
 }
-
-document.onkeyup = playTurn;
 
 function playTurn() {
     var playerGuess = event.key;
@@ -170,6 +170,7 @@ function playTurn() {
         winMusic.play();
         deleteMovieFromList();
         checkStatusOfGame();
+        document.onkeyup = "";
     }
 
     if (numberOfGuesses === 0) {
@@ -180,6 +181,7 @@ function playTurn() {
         loseMusic.play();
         deleteMovieFromList();
         checkStatusOfGame();
+        document.onkeyup = "";
     }
 }
 
