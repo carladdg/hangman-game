@@ -2,7 +2,18 @@
 
 var startButton = document.getElementById("start-button");
 
-var listOfWords = ["experience", "moon", "sleet", "mammoth", "store", "colorful", "lovely", "sneaky", "border", "scandalous"];
+var listOfWords = [
+    "get out",
+    "moonlight",
+    "spotlight",
+    "birdman",
+    "twelve years a slave",
+    "argo",
+    "the artist",
+    "the king's speech",
+    "the hurt locker",
+    "slumdog millionaire"
+];
 
 var numberOfWins = 0;
 var numberOfWinsElement = document.getElementById("number-of-wins");
@@ -19,6 +30,8 @@ var currentWord;
 var displayedWord;
 var displayedWordElement = document.getElementById("displayed-word")
 
+var resultElement = document.getElementById("result");
+
 var nextWordButton = document.getElementById("next-word-button");
 
 // functions
@@ -29,18 +42,18 @@ startButton.onclick = function() {
 }
 
 function initializeGame() {
-    console.log(listOfWords);
     numberOfGuesses = 10;
     numberOfGuessesElement.textContent = numberOfGuesses;
 
     lettersGuessed = [];
+    lettersGuessedElement.textContent = lettersGuessed;
 
     currentWord = selectRandomWord();
 
     displayedWord = convertToUnderscores();
     displayedWordElement.textContent = displayedWord;
 
-    console.log(currentWord);
+    resultElement.textContent = "";
 }
 
 function selectRandomWord() {
@@ -49,7 +62,7 @@ function selectRandomWord() {
 }
 
 function convertToUnderscores() {
-    var underscoredWord = currentWord.replace(/./g, "_");
+    var underscoredWord = currentWord.replace(/[a-z]/g, "_");
     return underscoredWord
 }
 
@@ -59,12 +72,16 @@ function playTurn() {
     var playerGuess = event.key;
     var playerGuessesWrong = true;
 
+    if ((playerGuess.length > 1) || (!/[a-z]/.test(playerGuess))) {
+        return;
+    }
+
     for (var i = 0; i < currentWord.length; i++) {
         if (playerGuess === currentWord[i]) {
             splitWord = displayedWord.split("");
             splitWord[i] = playerGuess;
             displayedWord = splitWord.join("");
-            displayedWordElement.textContent = displayedWord;
+            displayedWordElement.textContent = displayedWord.toUpperCase();
             playerGuessesWrong = false;
         }
     }
@@ -74,16 +91,14 @@ function playTurn() {
 
         for (var i = 0; i < lettersGuessed.length; i++) {
             if (playerGuess === lettersGuessed[i]) {
-                console.log("You already guessed this");
                 playerRepeatsGuess = true;
             }
         }
 
         if (playerRepeatsGuess === false) {   
-            console.log("Wrong guess");        
             lettersGuessed.push(playerGuess);
-            console.log(lettersGuessed);
-            lettersGuessedElement.textContent = lettersGuessed;
+            var formattedLettersGuessed = lettersGuessed.join(", ");
+            lettersGuessedElement.textContent = formattedLettersGuessed.toUpperCase();
             numberOfGuesses--;
             numberOfGuessesElement.textContent = numberOfGuesses;
         }
@@ -91,14 +106,31 @@ function playTurn() {
 
     if (displayedWord === currentWord) {
         numberOfWins++;
-        console.log(numberOfWins);
-        numberOfWinsElement.textContent = numberOfWins;
-        nextWordButton.style.display = "block";
+        numberOfWinsElement.textContent = numberOfWins + "/10";
+        resultElement.textContent = "You got it!";
+        deleteWordFromList();
+        checkStatusOfGame();
     }
 
     if (numberOfGuesses === 0) {
-        console.log("You lose");
+        displayedWordElement.textContent = currentWord.toUpperCase();
+        resultElement.textContent = "Nice try.";
+        deleteWordFromList();
+        checkStatusOfGame();
+    }
+}
+
+function deleteWordFromList() {
+    var wordToDelete = listOfWords.indexOf(currentWord);
+    listOfWords.splice(wordToDelete, 1);
+}
+
+function checkStatusOfGame() {
+    if (listOfWords.length > 0) {
         nextWordButton.style.display = "block";
+    } 
+    else {
+        resultElement.textContent = resultElement.textContent + " Thanks for playing!";
     }
 }
 
@@ -108,9 +140,6 @@ nextWordButton.onclick = function() {
 }
 
 function playAgain() {
-    var wordToDelete = listOfWords.indexOf(currentWord);
-    listOfWords.splice(wordToDelete, 1);
-
     if (listOfWords.length === 0) {
         console.log("you finished all the words");
     } else {

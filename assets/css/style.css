@@ -1,9 +1,21 @@
+/* :root {
+    --text-color: #ffffff;
+} */
+
+body {
+    background-image: url("../img/oscars-background.jpg");
+    background-size: auto;
+}
+
+.page-title {
+    background: white;
+    margin: auto;
+}
+
 #next-word-button {
     display: none;
 }
 
-/* .displayed-word {
-    letter-spacing: 5em;
-} */
-
-/* why not working? :( */
+#displayed-word {
+    letter-spacing: 0.5em;
+}

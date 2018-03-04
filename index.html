@@ -8,13 +8,26 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
-    <button id="start-button">Start</button>
-    <h1>Hangman</h1>
-    <h2>Wins: <span id="number-of-wins"></span></h2>
-    <h2><span id="displayed-word"></span></h2>
-    <h2>Number of Guesses Remaining: <span id="number-of-guesses"></span></h2>
-    <h2>Letters Guessed: <span id="letters-guessed"></span></h2>
+    <header class="page-title">
+        <h1>Hangman</h1>
+        <h2>Best Pictures at the Oscars</h2>
+    </header>
+    <button id="start-button">Let's Play!</button>
+    <section id="game-container">
+        <div id="game-stats">
+            <h2 class="instructions">Type the letter you want to guess.</h2>
+            <h2>Wins: <span id="number-of-wins"></span></h2>
+            <h2><span id="result"></span></h2>
+        </div>
+        <div id="word-information">        
+            <h2><span id="displayed-word"></span></h2>
+            <h2>Guesses Remaining: <span id="number-of-guesses"></span></h2>
+            <h2>Letters Guessed: <span id="letters-guessed"></span></h2>
+        </div>
+        <img src="" alt="movie poster" id="picture-of-word">
+
     <button id="next-word-button">Next Word</button>
+    </section>
 
     <script src="./assets/js/game.js"></script>
 </body>
