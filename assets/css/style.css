@@ -1,21 +1,150 @@
-/* :root {
-    --text-color: #ffffff;
-} */
-
-body {
-    background-image: url("../img/oscars-background.jpg");
-    background-size: auto;
+:root {
+    --gold: #f2e08e;   
+    --silver: #aaaaaa; 
+    --serif: "Cinzel", serif;
+    --sans-serif: "News Cycle", sans-serif;
 }
 
-.page-title {
-    background: white;
-    margin: auto;
+body {
+    background: #000000;
+    color: var(--gold);
+}
+
+.background-image {
+    position: absolute;
+    bottom: 0;
+    width: 30%;
+    z-index: -1;
+}
+
+.oscar-left {
+    left: 0;
+}
+
+.oscar-right {
+    right: 0;
+}
+
+.page-title {    
+    margin-top: 40px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 10px;
+
+    text-align: center;
+    font-weight: 700;
+}
+
+.page-title h1 {
+    margin-bottom: 0.67em;
+    
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 2em;
+}
+
+.page-title h2 {    
+    color: var(--silver);
+    font-family: var(--sans-serif);
+    font-size: 1.5em;
+}
+
+.game-button {
+    padding: 10px;
+
+    border: 3px solid var(--silver);
+    background-color: var(--gold);
+    font-family: var(--serif);
+    font-size: 1em;
+    font-weight: 700;
+}
+
+#start-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#game-container {
+    display: none;
+
+    margin-top: 0.67em;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 10px;
+}
+
+.instructions {
+    text-align: center;
+    color: var(--silver);
+    font-family: var(--sans-serif);
+    font-size: 1.3em;
+}
+
+#displayed-word {
+    margin-top: 1.5em;
+    margin-bottom: 0.67em;
+
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.game-stats {
+    margin-top: 20px;
+    padding: 15px;
+
+    border: 1.5px solid var(--silver);
+    text-align: center;
+}
+
+.text-heading {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+
+    color: var(--silver);
+    font-family: var(--sans-serif);
+    font-size: 1.2em;
+}
+
+.text-copy {
+    color: var(--gold);
+}
+
+.results-container {
+    display: flex;
+    
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.message-and-button {
+    position: relative;
+}
+
+#result {
+    margin-bottom: 0.67em;
+    font-family: var(--sans-serif);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+#picture-of-word {
+    display: none;
 }
 
 #next-word-button {
     display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #displayed-word {
     letter-spacing: 0.5em;
 }
+
+/* media query to reduce margins at smaller screens */

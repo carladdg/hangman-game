@@ -1,6 +1,7 @@
 // global variables
 
 var startButton = document.getElementById("start-button");
+var gameContainer = document.getElementById("game-container");
 
 var listOfWords = [
     "get out",
@@ -15,6 +16,19 @@ var listOfWords = [
     "slumdog millionaire"
 ];
 
+var listOfImages = [
+    "/Users/Carla/code/week3/hangman-game/assets/img/get-out.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/moonlight.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/spotlight.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/birdman.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/twelve-years.png",
+    "/Users/Carla/code/week3/hangman-game/assets/img/argo.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/the-artist.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/kings-speech.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/hurt-locker.jpg",
+    "/Users/Carla/code/week3/hangman-game/assets/img/slumdog-millionaire.jpeg"
+]
+
 var numberOfWins = 0;
 var numberOfWinsElement = document.getElementById("number-of-wins");
 numberOfWinsElement.textContent = numberOfWins + "/10";
@@ -28,9 +42,12 @@ var lettersGuessedElement = document.getElementById("letters-guessed");
 var currentWord;
 
 var displayedWord;
-var displayedWordElement = document.getElementById("displayed-word")
+var displayedWordElement = document.getElementById("displayed-word");
 
 var resultElement = document.getElementById("result");
+
+var currentImage;
+var pictureOfWordElement = document.getElementById("picture-of-word");
 
 var nextWordButton = document.getElementById("next-word-button");
 
@@ -38,6 +55,7 @@ var nextWordButton = document.getElementById("next-word-button");
 
 startButton.onclick = function() {
     startButton.style.display = "none";
+    gameContainer.style.display = "block";
     initializeGame();
 }
 
@@ -52,6 +70,10 @@ function initializeGame() {
 
     displayedWord = convertToUnderscores();
     displayedWordElement.textContent = displayedWord;
+
+    currentImage = listOfImages[listOfWords.indexOf(currentWord)];
+    pictureOfWordElement.src = currentImage;
+    pictureOfWordElement.style.display = "none";
 
     resultElement.textContent = "";
 }
@@ -108,13 +130,14 @@ function playTurn() {
         numberOfWins++;
         numberOfWinsElement.textContent = numberOfWins + "/10";
         resultElement.textContent = "You got it!";
+        pictureOfWordElement.style.display = "block";
         deleteWordFromList();
         checkStatusOfGame();
     }
 
     if (numberOfGuesses === 0) {
         displayedWordElement.textContent = currentWord.toUpperCase();
-        resultElement.textContent = "Nice try.";
+        resultElement.textContent = "Better luck next time.";
         deleteWordFromList();
         checkStatusOfGame();
     }
@@ -123,6 +146,9 @@ function playTurn() {
 function deleteWordFromList() {
     var wordToDelete = listOfWords.indexOf(currentWord);
     listOfWords.splice(wordToDelete, 1);
+
+    var pictureToDelete = listOfImages.indexOf(currentImage);
+    listOfImages.splice(pictureToDelete, 1);
 }
 
 function checkStatusOfGame() {
@@ -136,13 +162,13 @@ function checkStatusOfGame() {
 
 nextWordButton.onclick = function() {
     nextWordButton.style.display = "none";
-    playAgain();
+    initializeGame();
 }
 
-function playAgain() {
-    if (listOfWords.length === 0) {
-        console.log("you finished all the words");
-    } else {
-        initializeGame();
-    }
-}
+// function initializeGame() {
+//     if (listOfWords.length === 0) {
+//         console.log("you finished all the words");
+//     } else {
+//         initializeGame();
+//     }
+// }

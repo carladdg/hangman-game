@@ -5,28 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hangman</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|News+Cycle:400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
+    <img src="./assets/img/oscar-left.jpg" alt="oscars statue" class="background-image oscar-left">
+    <img src="./assets/img/oscar-right.jpg" alt="oscars statue" class="background-image oscar-right">
     <header class="page-title">
-        <h1>Hangman</h1>
-        <h2>Best Pictures at the Oscars</h2>
+        <h1>Best Pictures at the Oscars</h2>
+        <h2>A Hangman Game</h1>
     </header>
-    <button id="start-button">Let's Play!</button>
+    <button id="start-button" class="game-button">Let's Play!</button>
     <section id="game-container">
-        <div id="game-stats">
-            <h2 class="instructions">Type the letter you want to guess.</h2>
-            <h2>Wins: <span id="number-of-wins"></span></h2>
-            <h2><span id="result"></span></h2>
+        <h2 class="instructions">Type the letter you want to guess.</h2>
+        <h2 id="displayed-word"></h2>
+        <div class="game-stats">        
+            <h2 class="text-heading">Guesses Remaining: <span id="number-of-guesses" class="text-copy"></span></h2>
+            <h2 class="text-heading">Letters Guessed: <span id="letters-guessed" class="text-copy"></span></h2><br>
+            <h2 class="text-heading">Wins: <span id="number-of-wins" class="text-copy"></span></h2>
         </div>
-        <div id="word-information">        
-            <h2><span id="displayed-word"></span></h2>
-            <h2>Guesses Remaining: <span id="number-of-guesses"></span></h2>
-            <h2>Letters Guessed: <span id="letters-guessed"></span></h2>
+        <div class="results-container">
+            <div class="message-and-button">
+                <h2 id="result"></h2>
+                <button id="next-word-button" class="game-button">Next Word</button>
+            </div>
+            <img src="" alt="movie poster" id="picture-of-word">
         </div>
-        <img src="" alt="movie poster" id="picture-of-word">
-
-    <button id="next-word-button">Next Word</button>
     </section>
 
     <script src="./assets/js/game.js"></script>
