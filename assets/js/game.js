@@ -56,6 +56,9 @@ var listOfMovies = [
     },    
 ]
 
+var numberOfWordsElement = document.getElementById("number-of-words");
+numberOfWordsElement.textContent = listOfMovies.length;
+
 var numberOfWins = 0;
 var numberOfWinsElement = document.getElementById("number-of-wins");
 numberOfWinsElement.textContent = numberOfWins + "/10";
@@ -192,6 +195,7 @@ function provideMovieInfo() {
 function deleteMovieFromList() {
     var movieToDelete = listOfMovies.indexOf(currentMovie);
     listOfMovies.splice(movieToDelete, 1);
+    numberOfWordsElement.textContent = listOfMovies.length;
 }
 
 function checkStatusOfGame() {
