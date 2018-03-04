@@ -3,30 +3,57 @@
 var startButton = document.getElementById("start-button");
 var gameContainer = document.getElementById("game-container");
 
-var listOfWords = [
-    "get out",
-    "moonlight",
-    "spotlight",
-    "birdman",
-    "twelve years a slave",
-    "argo",
-    "the artist",
-    "the king's speech",
-    "the hurt locker",
-    "slumdog millionaire"
-];
-
-var listOfImages = [
-    "/Users/Carla/code/week3/hangman-game/assets/img/get-out.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/moonlight.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/spotlight.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/birdman.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/twelve-years.png",
-    "/Users/Carla/code/week3/hangman-game/assets/img/argo.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/the-artist.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/kings-speech.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/hurt-locker.jpg",
-    "/Users/Carla/code/week3/hangman-game/assets/img/slumdog-millionaire.jpeg"
+var listOfMovies = [
+    {
+        "name": "get out",
+        "image": "./assets/img/get-out.jpg",
+        "year": 2018
+    },
+    {
+        "name": "moonlight",
+        "image": "./assets/img/moonlight.jpg",
+        "year": 2017
+    },
+    {
+        "name": "spotlight",
+        "image": "./assets/img/spotlight.jpg",
+        "year": 2016
+    },
+    {
+        "name": "birdman",
+        "image": "./assets/img/birdman.jpg",
+        "year": 2015
+    },
+    {
+        "name": "twelve years a slave",
+        "image": "./assets/img/twelve-years.png",
+        "year": 2014
+    },
+    {
+        "name": "argo",
+        "image": "./assets/img/argo.jpg",
+        "year": 2013
+    },
+    {
+        "name": "the artist",
+        "image": "./assets/img/the-artist.jpg",
+        "year": 2012
+    },
+    {
+        "name": "the king's speech",
+        "image": "./assets/img/kings-speech.jpg",
+        "year": 2011
+    },
+    {
+        "name": "the hurt locker",
+        "image": "./assets/img/hurt-locker.jpg",
+        "year": 2010
+    },
+    {
+        "name": "slumdog millionaire",
+        "image": "./assets/img/slumdog-millionaire.jpeg",
+        "year": 2009
+    },    
 ]
 
 var numberOfWins = 0;
@@ -39,17 +66,23 @@ var numberOfGuessesElement = document.getElementById("number-of-guesses");
 var lettersGuessed;
 var lettersGuessedElement = document.getElementById("letters-guessed");
 
-var currentWord;
+var currentMovie;
 
+var currentMovieName;
 var displayedWord;
 var displayedWordElement = document.getElementById("displayed-word");
 
+var currentMovieImage;
+var moviePosterElement = document.getElementById("movie-poster");
+
+var movieInfo = document.getElementById("movie-info");
+
 var resultElement = document.getElementById("result");
 
-var currentImage;
-var pictureOfWordElement = document.getElementById("picture-of-word");
-
 var nextWordButton = document.getElementById("next-word-button");
+
+var winMusic = document.getElementById("win-music");
+var loseMusic = document.getElementById("lose-music");
 
 // functions
 
@@ -60,31 +93,33 @@ startButton.onclick = function() {
 }
 
 function initializeGame() {
-    numberOfGuesses = 10;
+    numberOfGuesses = 7;
     numberOfGuessesElement.textContent = numberOfGuesses;
 
     lettersGuessed = [];
     lettersGuessedElement.textContent = lettersGuessed;
 
-    currentWord = selectRandomWord();
+    currentMovie = selectRandomMovie();
+    currentMovieName = currentMovie.name;
 
     displayedWord = convertToUnderscores();
     displayedWordElement.textContent = displayedWord;
 
-    currentImage = listOfImages[listOfWords.indexOf(currentWord)];
-    pictureOfWordElement.src = currentImage;
-    pictureOfWordElement.style.display = "none";
+    currentMovieImage = currentMovie.image;
+    moviePosterElement.src = currentMovieImage;
+    moviePosterElement.style.display = "none";
 
+    movieInfo.textContent = "";
     resultElement.textContent = "";
 }
 
-function selectRandomWord() {
-    var randomlySelectedWord = listOfWords[Math.floor(Math.random()*listOfWords.length)]
-    return randomlySelectedWord;
+function selectRandomMovie() {
+    var randomlySelectedMovie = listOfMovies[Math.floor(Math.random()*listOfMovies.length)];
+    return randomlySelectedMovie;
 }
 
 function convertToUnderscores() {
-    var underscoredWord = currentWord.replace(/[a-z]/g, "_");
+    var underscoredWord = currentMovieName.replace(/[a-z]/g, "_");
     return underscoredWord
 }
 
@@ -98,8 +133,8 @@ function playTurn() {
         return;
     }
 
-    for (var i = 0; i < currentWord.length; i++) {
-        if (playerGuess === currentWord[i]) {
+    for (var i = 0; i < currentMovieName.length; i++) {
+        if (playerGuess === currentMovieName[i]) {
             splitWord = displayedWord.split("");
             splitWord[i] = playerGuess;
             displayedWord = splitWord.join("");
@@ -117,7 +152,7 @@ function playTurn() {
             }
         }
 
-        if (playerRepeatsGuess === false) {   
+        if (!playerRepeatsGuess) {   
             lettersGuessed.push(playerGuess);
             var formattedLettersGuessed = lettersGuessed.join(", ");
             lettersGuessedElement.textContent = formattedLettersGuessed.toUpperCase();
@@ -126,49 +161,49 @@ function playTurn() {
         }
     }
 
-    if (displayedWord === currentWord) {
+    if (displayedWord === currentMovieName) {
         numberOfWins++;
         numberOfWinsElement.textContent = numberOfWins + "/10";
         resultElement.textContent = "You got it!";
-        pictureOfWordElement.style.display = "block";
-        deleteWordFromList();
+        moviePosterElement.style.display = "block";
+        provideMovieInfo();
+        winMusic.play();
+        deleteMovieFromList();
         checkStatusOfGame();
     }
 
     if (numberOfGuesses === 0) {
-        displayedWordElement.textContent = currentWord.toUpperCase();
+        displayedWordElement.textContent = currentMovieName.toUpperCase();
         resultElement.textContent = "Better luck next time.";
-        deleteWordFromList();
+        moviePosterElement.style.display = "block";
+        provideMovieInfo();
+        loseMusic.play();
+        deleteMovieFromList();
         checkStatusOfGame();
     }
 }
 
-function deleteWordFromList() {
-    var wordToDelete = listOfWords.indexOf(currentWord);
-    listOfWords.splice(wordToDelete, 1);
+function provideMovieInfo() {
+    movieInfo.textContent = "Best Picture " + currentMovie.year;
+}
 
-    var pictureToDelete = listOfImages.indexOf(currentImage);
-    listOfImages.splice(pictureToDelete, 1);
+function deleteMovieFromList() {
+    var movieToDelete = listOfMovies.indexOf(currentMovie);
+    listOfMovies.splice(movieToDelete, 1);
 }
 
 function checkStatusOfGame() {
-    if (listOfWords.length > 0) {
+    if (listOfMovies.length > 0) {
         nextWordButton.style.display = "block";
     } 
     else {
-        resultElement.textContent = resultElement.textContent + " Thanks for playing!";
+        resultElement.innerHTML = resultElement.textContent + "<br>Thanks for playing!";
     }
 }
 
 nextWordButton.onclick = function() {
     nextWordButton.style.display = "none";
+    winMusic.pause();
+    winMusic.currentTime = 0;
     initializeGame();
 }
-
-// function initializeGame() {
-//     if (listOfWords.length === 0) {
-//         console.log("you finished all the words");
-//     } else {
-//         initializeGame();
-//     }
-// }

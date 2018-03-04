@@ -26,13 +26,15 @@ body {
 }
 
 .page-title {    
-    margin-top: 40px;
+    margin-top: 15px;
     margin-left: 25%;
     margin-right: 25%;
     padding-top: 10px;
 
     text-align: center;
     font-weight: 700;
+
+    transition: margin-left 0.5s, margin-right 0.5s;
 }
 
 .page-title h1 {
@@ -73,6 +75,8 @@ body {
     margin-left: 25%;
     margin-right: 25%;
     padding: 10px;
+
+    transition: margin-left 0.5s, margin-right 0.5s;
 }
 
 .instructions {
@@ -115,36 +119,88 @@ body {
 
 .results-container {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     
     margin-top: 20px;
     padding: 15px;
 }
 
+.picture-of-word {
+    width: 200px;
+}
+
+#movie-poster {
+    display: none;
+    width: 100%;
+}
+
 .message-and-button {
-    position: relative;
+    width: 300px;
+    padding-top: auto;
+    padding-bottom: auto;
+
+    text-align: center;
+}
+
+#movie-info {
+    margin-bottom: 0.67em;
+    font-family: var(--serif);
+    font-size: 1.5em;
 }
 
 #result {
     margin-bottom: 0.67em;
-    font-family: var(--sans-serif);
-    font-size: 1.2em;
-    text-align: center;
-}
 
-#picture-of-word {
-    display: none;
+    color: var(--silver);
+    font-family: var(--sans-serif);
+    font-size: 1.5em;
 }
 
 #next-word-button {
     display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #displayed-word {
     letter-spacing: 0.5em;
 }
 
-/* media query to reduce margins at smaller screens */
+@media screen and (max-width: 980px) {
+    .page-title {
+        margin-left: 15%;
+        margin-right: 15%;
+        transition: 0.5s;
+    }
+
+    #game-container {
+        margin-left: 15%;
+        margin-right: 15%;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-title {
+        margin-left: 10%;
+        margin-right: 10%;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    #game-container {
+        margin-left: 10%;
+        margin-right: 10%;
+        transition: 0.5s;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #game-container {
+        margin-left: 7%;
+        margin-right: 7%;
+        transition: 0.5s;
+    }
+}

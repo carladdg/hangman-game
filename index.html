@@ -21,17 +21,22 @@
         <h2 class="instructions">Type the letter you want to guess.</h2>
         <h2 id="displayed-word"></h2>
         <div class="game-stats">        
-            <h2 class="text-heading">Guesses Remaining: <span id="number-of-guesses" class="text-copy"></span></h2>
+            <h2 class="text-heading">Lives Left: <span id="number-of-guesses" class="text-copy"></span></h2>
             <h2 class="text-heading">Letters Guessed: <span id="letters-guessed" class="text-copy"></span></h2><br>
             <h2 class="text-heading">Wins: <span id="number-of-wins" class="text-copy"></span></h2>
         </div>
         <div class="results-container">
+            <div class="picture-of-word">
+                <img src="" alt="movie poster" id="movie-poster">
+            </div>
             <div class="message-and-button">
+                <h2 id="movie-info"></h2>
                 <h2 id="result"></h2>
                 <button id="next-word-button" class="game-button">Next Word</button>
             </div>
-            <img src="" alt="movie poster" id="picture-of-word">
         </div>
+        <audio src="./assets/audio/oscar-music.mp3" id="win-music"></audio> 
+        <audio src="./assets/audio/aww.mp3" id="lose-music"></audio> 
     </section>
 
     <script src="./assets/js/game.js"></script>
