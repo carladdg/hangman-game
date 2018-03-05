@@ -5,8 +5,8 @@ var gameContainer = document.getElementById("game-container");
 
 var listOfMovies = [
     {
-        "name": "get out",
-        "image": "./assets/img/get-out.jpg",
+        "name": "the shape of water",
+        "image": "./assets/img/shape-of-water.jpg",
         "year": 2018
     },
     {
